@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="idText" layoutX="354.0" layoutY="47.0" />
+      <TextField fx:id="usernameText" layoutX="354.0" layoutY="104.0" />
+      <TextField fx:id="passwordText" layoutX="354.0" layoutY="169.0" />
+      <Label layoutX="265.0" layoutY="52.0" text="id" />
+      <Label layoutX="257.0" layoutY="109.0" text="username" />
+      <Label layoutX="256.0" layoutY="174.0" prefHeight="21.0" prefWidth="65.0" text="password" />
+      <Button fx:id="createBtn" layoutX="40.0" layoutY="264.0" mnemonicParsing="false" onAction="#createUser" prefHeight="31.0" prefWidth="82.0" text="create" />
+      <Button fx:id="updateBtn" layoutX="162.0" layoutY="264.0" mnemonicParsing="false" onAction="#updateUser" prefHeight="31.0" prefWidth="82.0" text="update" />
+      <Button fx:id="deleteBtn" layoutX="280.0" layoutY="264.0" mnemonicParsing="false" onAction="#deleteUser" prefHeight="31.0" prefWidth="82.0" text="delete" />
+      <Button fx:id="logOffBtn" layoutX="8.0" layoutY="355.0" mnemonicParsing="false" onAction="#logoff" text="Logoff" />
+      <RadioButton fx:id="adminRadio" layoutX="321.0" layoutY="224.0" mnemonicParsing="false" text="Administrator">
+         <toggleGroup>
+            <ToggleGroup fx:id="role" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="empRadio" layoutX="454.0" layoutY="224.0" mnemonicParsing="false" text="Employee" toggleGroup="$role" />
+      <Button fx:id="reportBtn" layoutX="407.0" layoutY="264.0" mnemonicParsing="false" onAction="#generateReport" prefHeight="31.0" prefWidth="82.0" text="report" />
+   </children>
+</AnchorPane>
