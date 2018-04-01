@@ -83,9 +83,10 @@ public class LoginController {
                 else
                 {
                     ComponentFactory componentFactory = ComponentFactory.instance();
-                    EmployeeController employeeController=new EmployeeController(componentFactory.getEmployeeOperationService(),
-                            loginNotification.getResult().getId(),componentFactory.getActivityService());
+
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/EmployeeView.fxml"));
+                    EmployeeController employeeController=componentFactory.getEmployeeController();
+                    employeeController.setId(loginNotification.getResult().getId());
                     loader.setController(employeeController);
                     Parent root = loader.load();
                     Scene scene = new Scene(root);

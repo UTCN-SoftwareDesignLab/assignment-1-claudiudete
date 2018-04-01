@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.validation.Notification;
 import service.ActivityService;
@@ -24,12 +21,14 @@ public class AdministratorController {
 
     private AdministratorOperationService administratorOperationService;
     private ActivityService activityService;
+    private LoginController loginController;
 
 
-    public AdministratorController(AdministratorOperationService administratorOperationService,ActivityService activityService )
+    public AdministratorController(AdministratorOperationService administratorOperationService,ActivityService activityService,LoginController loginController)
     {
         this.administratorOperationService=administratorOperationService;
         this.activityService=activityService;
+        this.loginController=loginController;
 
     }
      @FXML
@@ -50,6 +49,9 @@ public class AdministratorController {
      @FXML
      private Button logOffBtn;
 
+     @FXML
+     private ToggleGroup role;
+
      private void showAlert(String s)
      {
          Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -68,7 +70,7 @@ public class AdministratorController {
            String password = passwordText.getText();
            String role;
 
-           if (adminRadio.isPressed()) role = ADMINISTRATOR;
+           if (adminRadio.isSelected()) role = ADMINISTRATOR;
            else role = EMPLOYEE;
 
            Notification<Boolean> registerNotification = administratorOperationService.createUser(role, username, password);
@@ -163,10 +165,10 @@ public class AdministratorController {
      }
 
      public void logoff() throws IOException {
-         ComponentFactory componentFactory = ComponentFactory.instance();
+
 
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
-         loader.setController(componentFactory.getLoginController());
+         loader.setController(this.loginController);
          Parent root = loader.load();
          Scene scene = new Scene(root);
          Stage window =(Stage)logOffBtn.getScene().getWindow();

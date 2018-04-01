@@ -11,6 +11,7 @@ import Repository.User.UserRepository;
 import Repository.User.UserRepositoryMySQL;
 import controller.AccountController;
 import controller.AdministratorController;
+import controller.EmployeeController;
 import controller.LoginController;
 import database.DBConnectionFactory;
 import service.*;
@@ -34,7 +35,8 @@ public class ComponentFactory {
 
     private final AdministratorController administratorController;
     private final LoginController loginController;
-    //private final  AccountController accountController;
+    private final EmployeeController employeeController;
+    private final  AccountController accountController;
 
 
 
@@ -59,10 +61,11 @@ public class ComponentFactory {
         this.administratorOperationService=new AdministratorOperationServiceMySQL(userRepository,rightsRolesRepository);
         this.employeeOperationService=new EmployeeOperationServiceMySQL(clientRepository,activityRepository);
         this.activityService=new ActivityServiceMySQL(activityRepository);
-        this.administratorController=new AdministratorController(administratorOperationService,activityService);
         this.loginController=new LoginController(authenticationService);
+        this.administratorController=new AdministratorController(administratorOperationService,activityService,loginController);
+        this.employeeController=new EmployeeController(employeeOperationService,activityService,loginController);
         this.accountService=new AccountServiceMySQL(accountRepository,clientRepository);
-       // this.accountController=new AccountController(accountService);
+        this.accountController=new AccountController(accountService,activityService,employeeOperationService,employeeController);
 
 
     }
@@ -105,7 +108,11 @@ public class ComponentFactory {
         return this.accountService;
     }
 
-   // public AccountController getAccountController() {
-    //    return accountController;
-    //}
+    public EmployeeController getEmployeeController() {
+        return employeeController;
+    }
+
+     public AccountController getAccountController() {
+        return accountController;
+    }
 }

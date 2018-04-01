@@ -24,13 +24,14 @@ public class EmployeeController {
     private EmployeeOperationService employeeOperationService;
     private ActivityService activityService;
     private long id;
+    private LoginController loginController;
 
 
-    public EmployeeController(EmployeeOperationService employeeOperationService,Long id,ActivityService activityService)
+    public EmployeeController(EmployeeOperationService employeeOperationService,ActivityService activityService,LoginController loginController)
     {
         this.employeeOperationService=employeeOperationService;
-        this.id=id;
         this.activityService=activityService;
+        this.loginController=loginController;
 
     }
 
@@ -38,6 +39,15 @@ public class EmployeeController {
     {
         return this.id;
     }
+
+    public void setId(long id)
+    {
+        this.id=id;
+    }
+
+
+
+
 
     public ActivityService getActivityService() {
         return activityService;
@@ -165,10 +175,10 @@ public class EmployeeController {
 
     public void logoff() throws IOException
     {
-        ComponentFactory componentFactory = ComponentFactory.instance();
+
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
-        loader.setController(componentFactory.getLoginController());
+        loader.setController(this.loginController);
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage window =(Stage)logoffBtn.getScene().getWindow();
@@ -181,7 +191,8 @@ public class EmployeeController {
 
         ComponentFactory componentFactory=ComponentFactory.instance();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ActivityView.fxml"));
-        AccountController accountController=new AccountController(componentFactory.getAccountService(),id,componentFactory.getActivityService(),componentFactory.getEmployeeOperationService());
+        AccountController accountController=componentFactory.getAccountController();
+        accountController.setId(this.id);
         loader.setController(accountController);
         Parent root = loader.load();
         Scene scene = new Scene(root);

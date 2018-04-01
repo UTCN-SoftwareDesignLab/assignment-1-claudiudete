@@ -26,16 +26,23 @@ public class AccountController {
     private long id;
     private ActivityService activityService;
     private EmployeeOperationService employeeOperationService;
+    private EmployeeController employeeController;
 
-    public AccountController(AccountService accountService,Long id,ActivityService activityService,EmployeeOperationService employeeOperationService) {
+    public AccountController(AccountService accountService,ActivityService activityService,EmployeeOperationService employeeOperationService,EmployeeController employeeController) {
         this.accountService = accountService;
-        this.id=id;
+
         this.activityService=activityService;
         this.employeeOperationService=employeeOperationService;
+        this.employeeController=employeeController;
     }
     public long getId()
     {
         return this.id;
+    }
+
+    public void setId(long id)
+    {
+        this.id=id;
     }
 
     private void showAlert(String s)
@@ -74,7 +81,7 @@ public class AccountController {
             Long id = Long.parseLong(idText.getText());
             Long sum = Long.parseLong(sumText.getText());
             String type;
-            if (spendingsRadio.isPressed()) type = "spendings";
+            if (spendingsRadio.isSelected()) type = "spendings";
             else type = "savings";
 
             if (sum<0) showAlert("Sum must be greater than 0");
@@ -188,7 +195,7 @@ public class AccountController {
         ComponentFactory componentFactory = ComponentFactory.instance();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/EmployeeView.fxml"));
-        loader.setController(new EmployeeController(componentFactory.getEmployeeOperationService(),this.id,componentFactory.getActivityService()));
+        loader.setController(this.employeeController);
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage window =(Stage)backBtn.getScene().getWindow();
