@@ -9,5 +9,6 @@ public interface UserRepository {
     boolean save(User user);
     boolean deleteById(Long id);
     boolean updateUser(User user);
+    void removeAll();
 
 }

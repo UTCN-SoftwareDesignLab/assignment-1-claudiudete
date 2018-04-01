@@ -144,6 +144,18 @@ public class ClientRepositoryMySQL implements ClientRepository  {
         return null;
     }
 
+    public void removeAll()
+    {
+        try {
+            PreparedStatement deleteStatement = connection.prepareStatement("DELETE from client WHERE id>=0");
+            deleteStatement.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 
 
 

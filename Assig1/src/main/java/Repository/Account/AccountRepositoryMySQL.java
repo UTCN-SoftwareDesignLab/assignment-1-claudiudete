@@ -20,6 +20,7 @@ public class AccountRepositoryMySQL implements AccountRepository {
 
     private final Connection connection;
 
+
     public AccountRepositoryMySQL(Connection connection)
     {
         this.connection=connection;
@@ -30,8 +31,8 @@ public class AccountRepositoryMySQL implements AccountRepository {
         try {
             PreparedStatement insertStatement = connection
                     .prepareStatement("INSERT INTO account values (null, ?, ?, ?, ?)");
-            insertStatement.setLong(1, account.getSum());
-            insertStatement.setLong(2,client_id);
+            insertStatement.setLong(1, client_id);
+            insertStatement.setLong(2,account.getSum());
             insertStatement.setString(3, account.getType());
             insertStatement.setDate(4, new java.sql.Date(account.getCreationDate().getTime()));
             insertStatement.executeUpdate();
@@ -83,6 +84,7 @@ public class AccountRepositoryMySQL implements AccountRepository {
         try {
             PreparedStatement deleteStatement = connection.prepareStatement("DELETE FROM account WHERE client_id=?");
             deleteStatement.setLong(1,client_id);
+            deleteStatement.executeUpdate();
         }
         catch(SQLException e)
         {
@@ -105,10 +107,11 @@ public class AccountRepositoryMySQL implements AccountRepository {
 
             return new AccountBuilder().setId(accId).setSum(sum).setType(accType).setCreationDate(date).build();
         } catch (SQLException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
+            return null;
         }
 
-        return null;
+
     }
 
     public boolean changeAccountSum(Long sum,Long id)

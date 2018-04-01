@@ -21,5 +21,6 @@
       <Button fx:id="updateBtn" layoutX="133.0" layoutY="265.0" mnemonicParsing="false" onAction="#updateClient" prefHeight="31.0" prefWidth="78.0" text="Update" />
       <Button fx:id="deleteBtn" layoutX="262.0" layoutY="265.0" mnemonicParsing="false" onAction="#removeClient" prefHeight="31.0" prefWidth="78.0" text="Delete" />
       <Button fx:id="logoffBtn" layoutX="387.0" layoutY="265.0" mnemonicParsing="false" onAction="#logoff" prefHeight="31.0" prefWidth="78.0" text="Logoff" />
+      <Button fx:id="accountBtn" layoutX="508.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToAccounts" prefHeight="31.0" prefWidth="91.0" text="Account" />
    </children>
 </AnchorPane>

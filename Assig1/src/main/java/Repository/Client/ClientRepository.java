@@ -10,4 +10,5 @@ public interface ClientRepository {
     boolean updateClient(Client client);
     boolean deleteClient(Long client_id);
     Client findByName(String name);
+    void removeAll();
 }

@@ -9,12 +9,11 @@ import Repository.Client.ClientRepositoryMySQL;
 import Repository.RightsRolesRepository;
 import Repository.User.UserRepository;
 import Repository.User.UserRepositoryMySQL;
+import controller.AccountController;
 import controller.AdministratorController;
-import controller.EmployeeController;
 import controller.LoginController;
 import database.DBConnectionFactory;
 import service.*;
-import sun.rmi.runtime.Log;
 
 import java.sql.Connection;
 
@@ -31,9 +30,11 @@ public class ComponentFactory {
     private final AdministratorOperationService administratorOperationService;
     private final EmployeeOperationService employeeOperationService;
     private final ActivityService activityService;
+    private final AccountService accountService;
 
     private final AdministratorController administratorController;
     private final LoginController loginController;
+    //private final  AccountController accountController;
 
 
 
@@ -60,6 +61,8 @@ public class ComponentFactory {
         this.activityService=new ActivityServiceMySQL(activityRepository);
         this.administratorController=new AdministratorController(administratorOperationService,activityService);
         this.loginController=new LoginController(authenticationService);
+        this.accountService=new AccountServiceMySQL(accountRepository,clientRepository);
+       // this.accountController=new AccountController(accountService);
 
 
     }
@@ -96,4 +99,13 @@ public class ComponentFactory {
     public LoginController getLoginController() {
         return loginController;
     }
+
+    public AccountService getAccountService()
+    {
+        return this.accountService;
+    }
+
+   // public AccountController getAccountController() {
+    //    return accountController;
+    //}
 }

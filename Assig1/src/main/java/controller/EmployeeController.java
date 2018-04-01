@@ -34,6 +34,15 @@ public class EmployeeController {
 
     }
 
+    public long getId()
+    {
+        return this.id;
+    }
+
+    public ActivityService getActivityService() {
+        return activityService;
+    }
+
     @FXML
     private TextField idText;
 
@@ -60,6 +69,9 @@ public class EmployeeController {
 
     @FXML
     private Button logoffBtn;
+
+    @FXML
+    private Button accountBtn;
 
     private void showAlert(String s)
     {
@@ -160,6 +172,20 @@ public class EmployeeController {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage window =(Stage)logoffBtn.getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+
+    public void goToAccounts() throws IOException
+    {
+
+        ComponentFactory componentFactory=ComponentFactory.instance();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ActivityView.fxml"));
+        AccountController accountController=new AccountController(componentFactory.getAccountService(),id,componentFactory.getActivityService(),componentFactory.getEmployeeOperationService());
+        loader.setController(accountController);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage window =(Stage)accountBtn.getScene().getWindow();
         window.setScene(scene);
         window.show();
     }

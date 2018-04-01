@@ -12,4 +12,5 @@ public interface AccountRepository {
     Account findAccountById(Long accId);
     void removeAccountsForClient(Long client_id);
     boolean changeAccountSum(Long sum,Long id);
+    void removeAll();
 }
